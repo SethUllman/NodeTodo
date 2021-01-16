@@ -56,6 +56,14 @@ app
     });
   });
 
+app.route("/remove/:id").get((req, res) => {
+  const id = req.params.id;
+  TodoTask.findByIdAndRemove(id, err => {
+    if (err) return res.send(500, err);
+    res.redirect("/");
+  });
+});
+
 mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true }, () => {
   console.log("Connected to db!");
   app.listen(3000, () => console.log("Server Up and running"));
